@@ -6,7 +6,9 @@
     },
     "files": [
         "src/app.ts",
-        "src/services/example.ts",
-        "src/types/type.ts"
+        "src/types/expression.ts",
+        "src/types/environment.ts",
+        "src/types/value.ts",
+        "src/services/example.ts"
     ]
 }
