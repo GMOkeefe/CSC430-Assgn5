@@ -1,40 +1,66 @@
 // Defines Value Types
 // Value
-interface Value {}
+interface Value {
+    isEqual(val: Value) : boolean
+}
 
 // NumV
 class NumV implements Value {
-    num: Number
+    num: number
 
-    constructor(num: Number) {
+    constructor(num: number) {
         this.num = num
+    }
+
+    isEqual(val: Value) : boolean {
+        if (typeof this == typeof val) {
+            return (this as NumV).num === (val as NumV).num
+        }
     }
 }
 
 // BoolV
 class BoolV implements Value {
-    bool: Boolean
+    bool: boolean
 
-    constructor(bool: Boolean) {
+    constructor(bool: boolean) {
         this.bool = bool
+    }
+
+    isEqual(val: Value) : boolean {
+        if (typeof this == typeof val) {
+            return (this as BoolV).bool === (val as BoolV).bool
+        }
     }
 }
 
 // StrV
 class StrV implements Value {
-    str: String
+    str: string
 
-    constructor(str: String) {
+    constructor(str: string) {
         this.str = str
+    }
+
+    isEqual(val: Value) : boolean {
+        if (typeof this == typeof val) {
+            return (this as StrV).str === (val as StrV).str
+        }
     }
 }
 
 // PrimV
 class PrimV implements Value {
-    prim: Function
+    prim: (val: Array<Value>) => Value
 
-    constructor(prim: Function) {
+    constructor(prim: (val: Array<Value>) => Value) {
         this.prim = prim
+    }
+
+    isEqual(val: Value) : boolean {
+        if (typeof this == typeof val) {
+            return (this as PrimV).prim === (val as PrimV).prim
+        }
     }
 }
 
@@ -46,5 +72,12 @@ class CloV implements Value {
     constructor(fun: LamC, env: Env) {
         this.fun = fun
         this.env = env
+    }
+
+    isEqual(val: Value) : boolean {
+        if (typeof this == typeof val) {
+            return ((this as CloV).fun === (val as CloV).fun
+                && (this as CloV).env === (val as CloV).env)
+        }
     }
 }
