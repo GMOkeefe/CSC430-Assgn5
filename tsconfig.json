@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "noEmitOnError": true,
+        "rootDir": "src/",
+        "outDir": "bin/"
+    },
+    "files": [
+        "src/app.ts",
+        "src/types/expression.ts",
+        "src/types/environment.ts",
+        "src/types/value.ts",
+        "src/services/example.ts"
+    ]
+}
