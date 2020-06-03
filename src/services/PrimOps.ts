@@ -71,3 +71,12 @@ var equalOp = function (args: Array<Value>) : Value {
         throw new Error("'equalOp: AQSE both arguments must be numbers");
     }
 }
+
+var errorOp = function (args: Array<Value>) : Value {
+    if (args.length === 1) {
+        throw new Error("'errorOp: " + args[0].serialize());
+    }
+    else {
+        throw new Error("'errorOp: AQSE incorrect number of args");
+    }
+}

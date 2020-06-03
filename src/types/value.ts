@@ -2,6 +2,7 @@
 // Value
 interface Value {
     isEqual(val: Value) : boolean
+    serialize() : string
 }
 
 // NumV
@@ -17,6 +18,10 @@ class NumV implements Value {
             return (this as NumV).num === (val as NumV).num
         }
     }
+
+    serialize() : string {
+        return this.num.toString();
+    }
 }
 
 // BoolV
@@ -30,6 +35,15 @@ class BoolV implements Value {
     isEqual(val: Value) : boolean {
         if (typeof this == typeof val) {
             return (this as BoolV).bool === (val as BoolV).bool
+        }
+    }
+
+    serialize() : string {
+        if (this.bool === true) {
+            return "true"
+        }
+        else {
+            return "false"
         }
     }
 }
@@ -47,6 +61,10 @@ class StrV implements Value {
             return (this as StrV).str === (val as StrV).str
         }
     }
+
+    serialize() : string {
+        return this.str;
+    }
 }
 
 // PrimV
@@ -61,6 +79,10 @@ class PrimV implements Value {
         if (typeof this == typeof val) {
             return (this as PrimV).prim === (val as PrimV).prim
         }
+    }
+
+    serialize() : string {
+        return "#<primop>";
     }
 }
 
@@ -79,5 +101,9 @@ class CloV implements Value {
             return ((this as CloV).fun === (val as CloV).fun
                 && (this as CloV).env === (val as CloV).env)
         }
+    }
+
+    serialize() : string {
+        return "#<procedure>";
     }
 }
