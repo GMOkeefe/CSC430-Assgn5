@@ -1,3 +1,7 @@
+import { ExprC, NumC, IdC, StrC, IfC, LamC, AppC } from '../types/expression'
+import { Value, NumV, BoolV, StrV, PrimV, CloV } from '../types/value'
+import { Binding, Env } from '../types/environment'
+
 var addOp = function (args: Array<Value>) : Value {
     if (args.length != 2) {
         throw new Error("'addOp: AQSE incorrect number of args");
@@ -80,7 +84,7 @@ var errorOp = function (args: Array<Value>) : Value {
 }
 
 // Top-env definition ==========================================================
-var topEnv = new Env([
+export var topEnv = new Env([
     new Binding('+', new PrimV(addOp)),
     new Binding('-', new PrimV(subOp)),
     new Binding('*', new PrimV(multOp)),
@@ -97,7 +101,7 @@ var topEnv = new Env([
 //parse-related code
 
 // Interp definition ===========================================================
-var interp = function(expr : ExprC, env : Env) : Value {
+export var interp = function(expr : ExprC, env : Env) : Value {
     if (expr instanceof NumC) {
         return new NumV(expr.num);
     }

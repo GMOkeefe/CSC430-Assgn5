@@ -1,4 +1,6 @@
 // Defines Value Types
+import { ExprC, NumC, StrC, IdC, IfC, LamC, AppC } from './expression'
+import { Env } from './environment'
 
 // array equality helper
 function valArrayEquals(l: Array<Value>, r: Array<Value>) : boolean {
@@ -20,13 +22,13 @@ function valArrayEquals(l: Array<Value>, r: Array<Value>) : boolean {
 }
 
 // Value
-interface Value {
+export interface Value {
     isEqual(val: Value) : boolean
     serialize() : string
 }
 
 // NumV
-class NumV implements Value {
+export class NumV implements Value {
     num: number
 
     constructor(num: number) {
@@ -46,7 +48,7 @@ class NumV implements Value {
 }
 
 // BoolV
-class BoolV implements Value {
+export class BoolV implements Value {
     bool: boolean
 
     constructor(bool: boolean) {
@@ -71,7 +73,7 @@ class BoolV implements Value {
 }
 
 // StrV
-class StrV implements Value {
+export class StrV implements Value {
     str: string
 
     constructor(str: string) {
@@ -91,7 +93,7 @@ class StrV implements Value {
 }
 
 // PrimV
-class PrimV implements Value {
+export class PrimV implements Value {
     prim: (val: Array<Value>) => Value
 
     constructor(prim: (val: Array<Value>) => Value) {
@@ -111,7 +113,7 @@ class PrimV implements Value {
 }
 
 // CloV
-class CloV implements Value {
+export class CloV implements Value {
     fun: LamC
     env: Env
 
@@ -123,7 +125,7 @@ class CloV implements Value {
     isEqual(val: Value) : boolean {
         if (typeof this === typeof val) {
             return ((this as CloV).fun.isEqual((val as CloV).fun) &&
-                (this as CloV).env === (val as CloV).env)
+                (this as CloV).env.isEqual((val as CloV).env))
         }
         return false
     }
