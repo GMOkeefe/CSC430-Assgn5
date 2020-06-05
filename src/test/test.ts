@@ -106,7 +106,7 @@ describe('Value Equality Function', () => {
 
 })
 
-describe('Interpreter Basic', () => {
+describe('Interpreter Tests', () => {
 
     it('should return 1 and "hello"', () => {
         var out = interp(new exp.NumC(1), topEnv)
@@ -114,6 +114,23 @@ describe('Interpreter Basic', () => {
 
         out = interp(new exp.StrC("hello"), topEnv)
         expect(out.isEqual(new val.StrV("hello"))).to.equal(true)
-    })
 
+        out = interp(new exp.IfC(new exp.IdC("true"),
+                     new exp.AppC(new exp.IdC("+"), [new exp.NumC(12), new exp.NumC(13)]),
+                     new exp.AppC(new exp.IdC("*"), [new exp.NumC(11), new exp.NumC(11)])), topEnv)
+        expect(out.isEqual((new val.NumV(25)))).to.equal(true)
+
+        out = interp(new exp.LamC(["x", "y"],
+                                  new exp.AppC(new exp.IdC("-"), [new exp.IdC("x"), new exp.IdC("y")])), topEnv)
+        expect(out.isEqual(new val.StrV("hello"))).to.equal(true)
+
+        expect(interp(new exp.AppC(new exp.LamC(["a"], new exp.AppC(new exp.IdC("/"), 
+                                                                    [new exp.IdC("a"), new exp.NumC(0)])),
+                                  [new exp.NumC(12)]), topEnv)).to.throw("'divOp: AQSE invalid division by zero")
+
+        out = interp(new exp.IfC(new exp.AppC(new exp.IdC("equal?"), [new exp.StrC("Hello"), new exp.StrC("World")]),
+                                 new exp.StrC("Same Word"),
+                                 new exp.StrC("Different Words")), topEnv)
+        expect(out.isEqual((new val.StrV("Different Words")))).to.equal(true)
+    })
 })

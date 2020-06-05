@@ -43,7 +43,10 @@ var divOp = function (args: Array<Value>) : Value {
         throw new Error("'divOp: AQSE incorrect number of args");
     }
     if (args[0] instanceof NumV && args[1] instanceof NumV) {
-        return (new NumV((args[0] as NumV).num / (args[1] as NumV).num));
+        if ((args[1] as NumV).num == 0)
+            return (new NumV((args[0] as NumV).num / (args[1] as NumV).num));
+        else
+            throw new Error("'divOp: AQSE invalid division by zero");
     }
     else {
         throw new Error("'divOp: AQSE both arguments must be numbers");
