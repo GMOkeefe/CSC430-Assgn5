@@ -108,8 +108,11 @@ describe('Value Equality Function', () => {
 
 describe('Interpreter Basic', () => {
 
-    it('should return "hello"', () => {
-        const out = interp(new exp.StrC("hello"), topEnv)
+    it('should return 1 and "hello"', () => {
+        var out = interp(new exp.NumC(1), topEnv)
+        expect(out.isEqual(new val.NumV(1))).to.equal(true)
+
+        out = interp(new exp.StrC("hello"), topEnv)
         expect(out.isEqual(new val.StrV("hello"))).to.equal(true)
     })
 
