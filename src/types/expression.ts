@@ -38,12 +38,12 @@ function expArrayEquals(l: Array<ExprC>, r: Array<ExprC>) : boolean {
 }
 
 // ExprC
-interface ExprC {
+export interface ExprC {
     isEqual(exp: ExprC) : boolean
 }
 
 // NumC
-class NumC implements ExprC {
+export class NumC implements ExprC {
     num: number
 
     constructor(num: number) {
@@ -59,7 +59,7 @@ class NumC implements ExprC {
 }
 
 // IdC
-class IdC implements ExprC {
+export class IdC implements ExprC {
     sym: string
 
     constructor(sym: string) {
@@ -75,7 +75,7 @@ class IdC implements ExprC {
 }
 
 // StrC
-class StrC implements ExprC {
+export class StrC implements ExprC {
     str: string
 
     constructor(str: string) {
@@ -91,7 +91,7 @@ class StrC implements ExprC {
 }
 
 // IfC
-class IfC implements ExprC {
+export class IfC implements ExprC {
     cond: ExprC
     ifT: ExprC
     ifF: ExprC
@@ -113,7 +113,7 @@ class IfC implements ExprC {
 }
 
 // LamC
-class LamC implements ExprC {
+export class LamC implements ExprC {
     param: Array<string>
     body: ExprC
 
@@ -132,7 +132,7 @@ class LamC implements ExprC {
 }
 
 // AppC
-class AppC implements ExprC {
+export class AppC implements ExprC {
     fun: ExprC
     args: Array<ExprC>
 
