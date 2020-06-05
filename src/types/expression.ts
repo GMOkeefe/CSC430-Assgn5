@@ -4,27 +4,27 @@ interface ExprC {}
 
 // NumC
 class NumC implements ExprC {
-    num: Number
+    num: number
 
-    constructor(num: Number) {
+    constructor(num: number) {
         this.num = num
     }
 }
 
 // IdC
 class IdC implements ExprC {
-    sym: String
+    sym: string
 
-    constructor(sym: String) {
+    constructor(sym: string) {
         this.sym = sym
     }
 }
 
 // StrC
 class StrC implements ExprC {
-    str: String
+    str: string
 
-    constructor(str: String) {
+    constructor(str: string) {
         this.str = str
     }
 }
@@ -44,10 +44,10 @@ class IfC implements ExprC {
 
 // LamC
 class LamC implements ExprC {
-    param: Array<String>
+    param: Array<string>
     body: ExprC
 
-    constructor(param: Array<String>, body: ExprC) {
+    constructor(param: Array<string>, body: ExprC) {
         this.param = param
         this.body = body
     }
