@@ -22,6 +22,7 @@ function valArrayEquals(l: Array<Value>, r: Array<Value>) : boolean {
 // Value
 interface Value {
     isEqual(val: Value) : boolean
+    serialize() : string
 }
 
 // NumV
@@ -37,6 +38,10 @@ class NumV implements Value {
             return (this as NumV).num === (val as NumV).num
         }
         return false
+    }
+
+    serialize() : string {
+        return this.num.toString();
     }
 }
 
@@ -54,6 +59,15 @@ class BoolV implements Value {
         }
         return false
     }
+
+    serialize() : string {
+        if (this.bool === true) {
+            return "true"
+        }
+        else {
+            return "false"
+        }
+    }
 }
 
 // StrV
@@ -70,6 +84,10 @@ class StrV implements Value {
         }
         return false
     }
+
+    serialize() : string {
+        return this.str;
+    }
 }
 
 // PrimV
@@ -85,6 +103,10 @@ class PrimV implements Value {
             return (this as PrimV).prim === (val as PrimV).prim
         }
         return false
+    }
+
+    serialize() : string {
+        return "#<primop>";
     }
 }
 
@@ -104,5 +126,9 @@ class CloV implements Value {
                 (this as CloV).env === (val as CloV).env)
         }
         return false
+    }
+
+    serialize() : string {
+        return "#<procedure>";
     }
 }
