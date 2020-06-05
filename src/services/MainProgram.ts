@@ -1,7 +1,6 @@
-import * as deepEqual from "deep-equal"
-
-
-// All Prim-op Function Definitions for Top-env ================================
+import { ExprC, NumC, IdC, StrC, IfC, LamC, AppC } from '../types/expression'
+import { Value, NumV, BoolV, StrV, PrimV, CloV } from '../types/value'
+import { Binding, Env } from '../types/environment'
 
 var addOp = function (args: Array<Value>) : Value {
     if (args.length != 2) {
@@ -68,7 +67,7 @@ var equalOp = function (args: Array<Value>) : Value {
         throw new Error("'equalOp: AQSE incorrect number of args");
     }
     if (typeof args[0] === typeof args[1]) {
-        return (new BoolV(deepEqual(args[0], args[1])));
+        return (new BoolV(args[0].isEqual(args[1])));
     }
     else {
         throw new Error("'equalOp: AQSE both arguments must be numbers");
@@ -85,7 +84,7 @@ var errorOp = function (args: Array<Value>) : Value {
 }
 
 // Top-env definition ==========================================================
-var topEnv = new Env([
+export var topEnv = new Env([
     new Binding('+', new PrimV(addOp)),
     new Binding('-', new PrimV(subOp)),
     new Binding('*', new PrimV(multOp)),
@@ -102,7 +101,7 @@ var topEnv = new Env([
 //parse-related code
 
 // Interp definition ===========================================================
-var interp = function(expr : ExprC, env : Env) : Value {
+export var interp = function(expr : ExprC, env : Env) : Value {
     if (expr instanceof NumC) {
         return new NumV(expr.num);
     }
@@ -143,7 +142,7 @@ var interp = function(expr : ExprC, env : Env) : Value {
         else {
             throw new Error("'interp AQSE type error: not callable");
         }
-    }  
+    }
 }
 
 //top-interp
