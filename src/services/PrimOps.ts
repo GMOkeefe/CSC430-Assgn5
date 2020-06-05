@@ -1,5 +1,3 @@
-import * as deepEqual from "deep-equal"
-
 var addOp = function (args: Array<Value>) : Value {
     if (args.length != 2) {
         throw new Error("'addOp: AQSE incorrect number of args");
@@ -65,7 +63,7 @@ var equalOp = function (args: Array<Value>) : Value {
         throw new Error("'equalOp: AQSE incorrect number of args");
     }
     if (typeof args[0] === typeof args[1]) {
-        return (new BoolV(deepEqual(args[0], args[1])));
+        return (new BoolV(args[0].isEqual(args[1])));
     }
     else {
         throw new Error("'equalOp: AQSE both arguments must be numbers");

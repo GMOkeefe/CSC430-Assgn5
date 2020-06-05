@@ -9,6 +9,7 @@
         "src/types/expression.ts",
         "src/types/environment.ts",
         "src/types/value.ts",
-        "src/services/example.ts"
+        "src/services/example.ts",
+        "src/services/PrimOps.ts"
     ]
 }

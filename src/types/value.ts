@@ -1,4 +1,24 @@
 // Defines Value Types
+
+// array equality helper
+function valArrayEquals(l: Array<Value>, r: Array<Value>) : boolean {
+    if (l === r) {
+        return true
+    }
+    if (l == null || r == null) {
+        return false
+    }
+    if (l.length != r.length) {
+        return false
+    }
+
+    for (var i = 0; i < l.length; i++) {
+        if (!(l[i].isEqual(r[i]))) { return false }
+    }
+
+    return true
+}
+
 // Value
 interface Value {
     isEqual(val: Value) : boolean
@@ -13,9 +33,10 @@ class NumV implements Value {
     }
 
     isEqual(val: Value) : boolean {
-        if (typeof this == typeof val) {
+        if (typeof this === typeof val) {
             return (this as NumV).num === (val as NumV).num
         }
+        return false
     }
 }
 
@@ -28,9 +49,10 @@ class BoolV implements Value {
     }
 
     isEqual(val: Value) : boolean {
-        if (typeof this == typeof val) {
+        if (typeof this === typeof val) {
             return (this as BoolV).bool === (val as BoolV).bool
         }
+        return false
     }
 }
 
@@ -43,9 +65,10 @@ class StrV implements Value {
     }
 
     isEqual(val: Value) : boolean {
-        if (typeof this == typeof val) {
+        if (typeof this === typeof val) {
             return (this as StrV).str === (val as StrV).str
         }
+        return false
     }
 }
 
@@ -58,9 +81,10 @@ class PrimV implements Value {
     }
 
     isEqual(val: Value) : boolean {
-        if (typeof this == typeof val) {
+        if (typeof this === typeof val) {
             return (this as PrimV).prim === (val as PrimV).prim
         }
+        return false
     }
 }
 
@@ -75,9 +99,10 @@ class CloV implements Value {
     }
 
     isEqual(val: Value) : boolean {
-        if (typeof this == typeof val) {
-            return ((this as CloV).fun === (val as CloV).fun
-                && (this as CloV).env === (val as CloV).env)
+        if (typeof this === typeof val) {
+            return ((this as CloV).fun.isEqual((val as CloV).fun) &&
+                (this as CloV).env === (val as CloV).env)
         }
+        return false
     }
 }
